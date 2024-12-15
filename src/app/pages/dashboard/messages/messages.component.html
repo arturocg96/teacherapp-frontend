@@ -1,0 +1,175 @@
+<div class="mt-4">
+  <div class="d-flex flex-wrap gap-4">
+    <div class="col-6 col-md-4 col-12 p-4 rounded-4 cont">
+      <div class="list-group">
+        @if(role==='alumno'){
+        <div>
+          <h5>Profesores</h5>
+          <input
+            type="text"
+            class="form-control mb-3 border-0"
+            placeholder="Buscar..."
+            #txtQuery
+            (input)="queryChanged(txtQuery.value)"
+          />
+        </div>
+        <div class="overflow-auto listado">
+          @for(user of arrProf;track $index) {
+          <div
+            class="list-group-item userlist d-flex w-auto text-center align-items-center hov"
+            (click)="seleccionarContacto(user)"
+          >
+            <img
+              [src]="
+                user.foto
+                  ? API_URL + user.foto
+                  : './img/no_profile_freepick.webp'
+              "
+              alt="Avatar"
+              class="rounded-circle me-2 avatar"
+            />
+            <div>
+              <h6 class="mb-1">
+                {{ user.nombre }} {{ getPrimerApellido(user.apellidos) }}
+
+                <span
+                  *ngIf="getMensajesNoLeidosPorUsuario(user.id) > 0"
+                  class="badge badge__element position-relative px-2 py-1 font12 rounded-circle"
+                >
+                  {{ getMensajesNoLeidosPorUsuario(user.id) }}
+                </span>
+              </h6>
+            </div>
+          </div>
+          }
+        </div>
+        } @if(role==='profesor') {
+        <div>
+          <h5>Alumnos</h5>
+          <input
+            type="text"
+            class="form-control mb-3 border-0"
+            placeholder="Buscar..."
+            #txtQuery
+            (input)="queryChanged(txtQuery.value)"
+          />
+        </div>
+        <div class="overflow-auto listado">
+          @for(user of arrAlumnos; track $index){
+          <div
+            class="list-group-item userlist d-flex text-center align-items-center hov"
+            (click)="seleccionarContacto(user)"
+          >
+            <img
+              [src]="
+                user.foto
+                  ? API_URL + user.foto
+                  : './img/no_profile_freepick.webp'
+              "
+              alt="Avatar"
+              class="rounded-circle me-2 avatar"
+            />
+            <div>
+              <h6 class="mb-0">
+                {{ user.nombre }} {{ getPrimerApellido(user.apellidos) }}
+                <span
+                  *ngIf="getMensajesNoLeidosPorUsuario(user.id) > 0"
+                  class="badge badge__element position-relative px-2 py-1 font12 rounded-circle"
+                >
+                  {{ getMensajesNoLeidosPorUsuario(user.id) }}
+                </span>
+              </h6>
+            </div>
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Área de Chat -->
+    <div class="col-6 col-md-6 flex-grow-1 custom">
+      <div>
+        @if(contactoSeleccionado){
+        <div class="chat-window d-flex flex-column rounded-4" id="micont">
+          <div class="border-bottom py-2 d-flex text-center align-items-center">
+            <img
+              [src]="
+                contactoSeleccionado.foto
+                  ? API_URL + contactoSeleccionado.foto
+                  : './img/no_profile_freepick.webp'
+              "
+              alt="Avatar"
+              class="rounded-circle me-2 avatar"
+            />
+            <h5>
+              {{ contactoSeleccionado.nombre }}
+              {{ getPrimerApellido(contactoSeleccionado.apellidos) }}
+            </h5>
+          </div>
+
+          <div id="contmsj">
+            @for(mensaje of mensajes;track $index){
+            <div
+              class="chat-message"
+              [ngClass]="
+                mensaje.emisor_id === usuarioId
+                  ? 'enviado'
+                  : mensaje.destinatario_id === usuarioId
+                  ? 'recibido'
+                  : ''
+              "
+            >
+              <div class="message-content">
+                <p class="mb-2">{{ mensaje.contenido }}</p>
+                @if(mensaje.emisor_id === usuarioId){
+                <small class="d-flex justify-content-end"> enviado </small>
+                } @else {
+                {{ contactoSeleccionado.nombre }}
+                }
+              </div>
+            </div>
+            }
+          </div>
+
+          <form
+            [formGroup]="chatForm"
+            (ngSubmit)="getdata()"
+            class="mt-auto py-2"
+          >
+            <div class="input-group height50">
+              <input
+                type="text"
+                class="form-control"
+                id="contenido"
+                formControlName="contenido"
+                placeholder="Escribe un mensaje..."
+              />
+              <button class="btn enviarbtn" type="submit">Enviar</button>
+            </div>
+          </form>
+        </div>
+        } @else {
+        <div class="chat-window rounded-4">
+          <form
+            [formGroup]="chatForm"
+            (ngSubmit)="getdata()"
+            class="mt-auto py-2"
+          >
+            <div class="input-group height50">
+              <input
+                type="text"
+                class="form-control"
+                id="contenido"
+                formControlName="contenido"
+                placeholder="Escribe un mensaje..."
+              />
+              <button class="btn enviarbtn" type="submit">Enviar</button>
+            </div>
+          </form>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

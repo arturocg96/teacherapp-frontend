@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+nav{
+    font-family: "Work Sans", sans-serif;
+}
+
+a, a:hover{
+  text-decoration: none;
+}
+.button-primary {
+  background-color: var(--color-button1);
+}
+.button-secondary {
+  background-color: var(--color-button2);
+  border-radius: 3px;
+}
+.button-secondary:hover {
+  box-shadow: 4px 4px 5px rgba(0, 0.3, 0, 0.3); /* Sombra cuando el cursor está sobre el botón */
+}
+
+ul {
+  list-style-type: none; /* Opcional: elimina los puntos de la lista si usas <ul> */
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px; /* Añade espacio entre los botones */
+}
+
+button {
+  width: 100%; /* Hace que cada botón ocupe el ancho completo del contenedor */
+  display: block; /* Fuerza a los botones a comportarse como elementos de bloque */
+}

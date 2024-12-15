@@ -1,0 +1,62 @@
+<ul>
+  @if(usuario.rol === 'profesor'){
+  <li>
+    <button
+      [routerLink]="['/dashboard/my-students']"
+      class="btn button-secondary w-100"
+    >
+      Mis Alumnos
+    </button>
+  </li>
+  }
+
+  <!-- Aquí el botón para Mis Profesores -->
+  @if(usuario.rol === 'alumno'){
+  <li>
+    <button
+      [routerLink]="['/dashboard/my-classes']"
+      class="btn button-secondary w-100"
+    >
+      Mis Clases
+    </button>
+  </li>
+  }
+
+  <li>
+    <button
+      [routerLink]="['/dashboard/messages']"
+      class="btn button-secondary w-100"
+    >
+      Mensajes
+    </button>
+  </li>
+
+  <li>
+    <button
+      [routerLink]="['/dashboard/my-account']"
+      class="btn button-secondary w-100"
+    >
+      Mi Cuenta
+    </button>
+  </li>
+
+  <li>
+    <button
+      [routerLink]="['/dashboard/reviews']"
+      class="btn button-secondary w-100"
+    >
+      Reseñas
+    </button>
+  </li>
+
+  @if(usuario.rol === 'profesor'){
+  <li>
+    <button
+      [routerLink]="['/dashboard/my-info']"
+      class="btn button-secondary w-100"
+    >
+      Más Información
+    </button>
+  </li>
+  }
+</ul>

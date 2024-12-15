@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+
+.container {
+  font-family: "Work Sans", sans-serif;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-secondary);
+  padding: 10px 20px 20px 20px;
+  min-height: 30rem; /* Establecer altura mínima */
+  min-width: 100%; /* Evitar el cambio de ancho */
+  max-width: 100%;
+  height: 40rem;
+}
+
+.userlist {
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  background-color: var(--color-background-main);
+}
+
+#contmsj {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+#contmsj::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-message {
+  margin-bottom: 6px;
+  padding: 3px;
+}
+.chat-message.enviado {
+  border-radius: 10px;
+  color: var(--color-background-main);
+  font-size: var(--font-size-base);
+  background-color: var(--color-chat-enviado);
+  margin-left: auto;
+  text-align: start;
+  max-width: 60%;
+}
+.chat-message.recibido {
+  border-radius: 10px;
+  background-color: var(--color-button1);
+  font-size: var(--font-size-base);
+  margin-right: auto;
+  text-align: start;
+  max-width: 60%;
+}
+.message-content {
+  border-radius: 10px;
+  padding: 10px;
+}
+.chat-content {
+  flex-grow: 1;
+  overflow-y: auto; /* Asegura que los mensajes puedan desplazarse */
+}
+.cont {
+  background-color: var(--color-background-secondary);
+}
+.enviarbtn {
+  background-color: var(--color-button1);
+}
+
+.hov {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.listado {
+  height: 500px;
+  @media (max-width: 767px) {
+    height: 100px;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.height50 {
+  height: 50px;
+}
+
+.badge__element {
+  background-color: #cceabb;
+  color: #3f3f44;
+  padding: 2px 2px;
+  border-radius: 4px;
+  font-size: 12px;
+}

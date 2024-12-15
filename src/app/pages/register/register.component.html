@@ -1,0 +1,30 @@
+<div class="d-flex flex-column vh-100">
+  <header class="flex-grow-0">
+    <app-navbar></app-navbar>
+  </header>
+  <main class="flex-grow-1">
+    <section
+      class="wrapper d-flex justify-content-center bg-body flex-column p-3 align-items-center"
+    >
+      <div class="card p-5 text-center border-0 shadow-lg bg-light h-">
+        <h1>
+          <p class="fw-light text-center">¡Vamos allá!</p>
+          <p class="fw-light text-center">
+            ¿Cómo quieres <span class="fw-bold">registrarte</span>?
+          </p>
+        </h1>
+        <div class="mt-4 d-flex flex-column align-items-stretch">
+          <a routerLink="/nuevo-profesor" class="btn button-primary my-2">
+            Profesor
+          </a>
+          <a routerLink="/nuevo-alumno" class="btn button-secondary my-2">
+            Alumno
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="flex-grow-0">
+    <app-footer></app-footer>
+  </footer>
+</div>

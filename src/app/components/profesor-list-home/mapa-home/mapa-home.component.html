@@ -1,0 +1,22 @@
+<map-marker
+  #miMaker="mapMarker"
+  [position]="getposition(myCoordenada.coordenadas)"
+  (mapClick)="openInfoWindow(miMaker, infoWindow)"
+>
+  <map-info-window #infoWindow="mapInfoWindow">
+    <h4 class="text-center">{{ myCoordenada.nombre }}</h4>
+    <img
+      class="img-prof rounded-circle"
+      [src]="API_URL + myCoordenada.foto"
+      [alt]="myCoordenada.nombre"
+      style="
+        height: 100px;
+        aspect-ratio: 1/1;
+        display: block;
+        object-fit: cover;
+      "
+    />
+    <p class="text-center mt-2">Precio: {{ myCoordenada.precio }} $</p>
+
+    <hr /> </map-info-window
+></map-marker>

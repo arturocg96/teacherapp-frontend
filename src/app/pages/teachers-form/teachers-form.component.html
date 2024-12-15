@@ -1,0 +1,243 @@
+@if(tipo === 'Registra'){
+<header>
+  <app-navbar></app-navbar>
+</header>
+}
+<main>
+  <section class="bg-white py-5 d-flex justify-content-center align-items-center teacher-container">
+    <div class="card container p-5 border-0 shadow-lg bg-light">
+      <h3 class="shadow title w-auto align-self-center text-uppercase text-center">
+        {{ tipo }} tu perfil de profesor
+      </h3>
+
+      <form [formGroup]="teacherForm" (ngSubmit)="obtenerDatosFormulario()" class="mt-4">
+        <!-- Foto de Perfil -->
+        <div class="row">
+          <div class="col-12 d-flex flex-column align-items-center my-3">
+            <label class="form-label text-center mb-2" for="foto" title="Modifica tu imagen de perfil">
+              Foto
+            </label>
+            <label for="foto" class="profile-container">
+              <img [src]="profileImgUrl" alt="Imagen de perfil" class="form__img__profile img-fluid rounded-circle" />
+            </label>
+            <input class="form-control visually-hidden" type="file" id="foto" accept="image/png, image/jpeg, image/webp"
+              (change)="obtenerImagen($event)" />
+            <div class="error-box">
+              @if(checkControl('foto', 'formatoInvalido')) {
+              <p class="text-danger">
+                El archivo debe ser una imagen en formato JPG, PNG o WEBP
+              </p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Nombre y apellidos -->
+        <div class="row">
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-control" type="text" id="nombre" formControlName="nombre"
+              placeholder="Introduce el nombre" />
+            <div class="error-box">
+              @if(checkControl('nombre', 'required')) {
+              <p class="text-danger">El nombre es obligatorio</p>
+              } @else if(checkControl('nombre', 'maxlength')) {
+              <p class="text-danger">El nombre no debe exceder 45 caracteres</p>
+              }
+            </div>
+          </div>
+
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="apellidos">Apellidos</label>
+            <input class="form-control" type="text" id="apellidos" formControlName="apellidos"
+              placeholder="Introduce los apellidos" />
+            <div class="error-box">
+              @if(checkControl('apellidos', 'required')) {
+              <p class="text-danger">Los apellidos son obligatorios</p>
+              } @else if(checkControl('apellidos', 'maxlength')) {
+              <p class="text-danger">
+                Los apellidos no deben exceder 150 caracteres
+              </p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Email y teléfono -->
+        <div class="row">
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" id="email" formControlName="email"
+              placeholder="Introduce el email" />
+            <div class="error-box">
+              @if(checkControl('email', 'required')) {
+              <p class="text-danger">El email es obligatorio</p>
+              } @else if(checkControl('email', 'email')) {
+              <p class="text-danger">Formato de email inválido</p>
+              } @else if(checkControl('email', 'maxlength')) {
+              <p class="text-danger">El email no debe exceder 60 caracteres</p>
+              }
+            </div>
+          </div>
+
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="telefono">Teléfono</label>
+            <input class="form-control" type="text" id="telefono" formControlName="telefono"
+              placeholder="Introduce el teléfono" />
+            <div class="error-box">
+              @if(checkControl('telefono', 'required')) {
+              <p class="text-danger">El teléfono es obligatorio</p>
+              } @else if(checkControl('telefono', 'pattern')) {
+              <p class="text-danger">El teléfono debe tener 9 dígitos</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="row">
+          @if(tipo === 'Registra' || mostrarCamposContrasena) {
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="password">Contraseña</label>
+            <input class="form-control" type="password" id="password" formControlName="password"
+              placeholder="Introduce la contraseña" />
+            <div class="error-box">
+              @if(checkControl('password', 'required')) {
+              <p class="text-danger">La contraseña es obligatoria</p>
+              } @else if(checkControl('password', 'minlength')) {
+              <p class="text-danger">Debe tener al menos 8 caracteres</p>
+              } @else if(checkControl('password', 'maxlength')) {
+              <p class="text-danger">No debe exceder de 255 caracteres</p>
+              } @else if(checkControl('password', 'pattern')) {
+              <p class="text-danger">Debe incluir una mayúscula y un número</p>
+              }
+            </div>
+          </div>
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="repitepassword">Repite Contraseña</label>
+            <input class="form-control" type="password" id="repitepassword" formControlName="repitepassword"
+              placeholder="Repite la contraseña" />
+            <div class="error-box">
+              @if(checkControl('repitepassword', 'required')) {
+              <p class="text-danger">Debe repetir la contraseña</p>
+              } @else if(teacherForm.hasError('checkpassword')) {
+              <p class="text-danger">Las contraseñas no coinciden</p>
+              }
+            </div>
+          </div>
+          }
+        </div>
+
+        <!-- Precio por hora y meses de experiencia -->
+        <div class="row">
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="precio_hora">Precio por Hora</label>
+            <input class="form-control" type="number" min="0" id="precio_hora" formControlName="precio_hora"
+              placeholder="Introduce el precio por hora" />
+            <div class="error-box">
+              @if(checkControl('precio_hora', 'required')) {
+              <p class="text-danger">El precio por hora es obligatorio</p>
+              } @else if(checkControl('precio_hora', 'min')) {
+              <p class="text-danger">El precio por hora debe ser al menos 0</p>
+              } @else if(checkControl('precio_hora', 'max')) {
+              <p class="text-danger">El precio por hora no debe exceder 99.99</p>
+              }
+            </div>
+          </div>
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="meses_experiencia">Meses de Experiencia</label>
+            <input class="form-control" type="number" min="0" id="meses_experiencia" formControlName="meses_experiencia"
+              placeholder="Introduce los meses de experiencia" />
+            <div class="error-box">
+              @if(checkControl('meses_experiencia', 'required')) {
+              <p class="text-danger">Este campo es obligatorio</p>
+              } @else if(checkControl('meses_experiencia', 'min')) {
+              <p class="text-danger">Debe ser un valor mayor o igual a 0</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Dirección y materias -->
+
+        <div class="form__last__row row">
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="localizacion">Direccion</label>
+            <input class="form-control" type="text" id="localizacion" formControlName="localizacion"
+              placeholder="Introduce tu Direccion" #txtQuery (input)="queryChanged(txtQuery.value)" />
+            <ul class="list-group">
+              @if(places.length > 0 && !isLoadingPlaces) { @for(place of places;
+              track $index) {
+              <li class="list-group-item list-group-item-action pointer" [value]="place.geometry.coordinates"
+                (click)="selectPlace(place)">
+                <h6>{{ place.properties.full_address }}</h6>
+              </li>
+              } }
+            </ul>
+            @if(checkControl('localizacion', 'required')) {
+            <small class="text-danger">La direccion es obligatoria</small>
+            }
+          </div>
+
+          <div class="my-2 fw-light col-md-6">
+            <label class="form-label" for="materias">Materias</label>
+            <button type="button" class="btn button-secondary w-100" (click)="alternarDesplegable()">
+              Selecciona hasta 3 materias
+            </button>
+            @if(desplegableAbierto) { @if(materiasList && materiasList.length > 0)
+            {
+            <div class="border p-2 mt-2 desplegable">
+              <div class="form-check" *ngFor="let materia of materiasList">
+                <input class="form-check-input" type="checkbox" [value]="materia.id" (change)="cambiarMateria($event)"
+                  [checked]="teacherForm.value.materias.includes(materia.id)" />
+                <label class="form-check-label">{{ materia.nombre }}</label>
+              </div>
+            </div>
+            } @else {
+            <p class="text-muted">No hay materias disponibles.</p>
+            } }
+            <div class="error-box">
+              @if(limiteMateriasExcedido) {
+              <p class="text-danger">Solo puedes seleccionar hasta 3 materias</p>
+              } @if(checkControl('materias', 'required')) {
+              <p class="text-danger">Debe seleccionar al menos una materia</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón contraseña sección actualizar -->
+
+        @if(tipo === 'Actualizar') {
+        <div class="row justify-content-center mt-0 mb-5">
+          <div class="col-auto">
+            <button type="button" class="button-secondary" (click)="toggleCamposContrasena()">
+              {{ mostrarCamposContrasena ? "Cancelar" : "Actualizar Contraseña" }}
+            </button>
+          </div>
+        </div>
+        }
+
+        <!-- Submit -->
+
+        <div class="mt-5 mb-3 text-center">
+          <input type="submit" [value]="tipo" class="button-primary pointer"
+            [disabled]="!teacherForm.valid || errorForm.length > 0" />
+        </div>
+      </form>
+
+      <!-- Errores -->
+
+      <div class="mt-4">
+        @for(error of errorForm; track $index) { @if(error.message) {
+        <p class="text-danger">{{ error.field }}: {{ error.message }}</p>
+        } }
+      </div>
+    </div>
+  </section>
+</main>
+@if(tipo === 'Registra'){
+<footer>
+  <app-footer></app-footer>
+</footer>
+}

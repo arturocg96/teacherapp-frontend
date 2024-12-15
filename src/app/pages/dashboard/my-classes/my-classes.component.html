@@ -1,0 +1,111 @@
+<div class="classes-header">
+  <h2>Mis Clases</h2>
+</div>
+
+<div class="courses-list">
+  <!-- Tabla para desktop -->
+  <div class="desktop-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre Profesor</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Precio/hora</th>
+          <th>Meses de experiencia</th>
+          <th>Fecha registro</th>
+          <th>Fecha baja</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(registro of registrosUsuario; track $index){
+        <tr>
+          <td>
+            <img
+              [src]="
+                registro.foto_profesor
+                  ? API_URL + registro.foto_profesor
+                  : '/img/no_profile_freepick.webp'
+              "
+              alt="Foto de {{ registro.nombre_profesor }} {{
+                registro.apellidos_profesor
+              }}"
+              class="alumno-foto"
+            />
+            <div>
+              <strong
+                >{{ registro.nombre_profesor }}
+                {{ registro.apellidos_profesor }}</strong
+              ><br />
+            </div>
+          </td>
+          <td>{{ registro.email_profesor }}</td>
+          <td>{{ registro.telefono }}</td>
+          <td>{{ registro.precio_hora }} €</td>
+          <td>{{ registro.meses_experiencia }} meses</td>
+          <td>{{ registro.fecha_registro | date : "dd/MM/yyyy" }}</td>
+          @if(registro.fecha_fin){
+          <td>{{ registro.fecha_fin | date : "dd/MM/yyyy" }}</td>
+          } @else {
+          <td>
+            <button
+              (click)="darRegistroDeBaja(registro.id)"
+              class="button-primary"
+            >
+              Darse de baja
+            </button>
+          </td>
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cards para móvil -->
+  <div class="mobile-cards">
+    @for(registro of registrosUsuario; track $index){
+    <div class="card">
+      <div class="card-header">
+        <img
+          [src]="
+            registro.foto_profesor
+              ? API_URL + registro.foto_profesor
+              : '/img/no_profile_freepick.webp'
+          "
+          alt="Foto de {{ registro.nombre_profesor }} {{
+            registro.apellidos_profesor
+          }}"
+          class="alumno-foto"
+        />
+        <strong
+          >{{ registro.nombre_profesor }}
+          {{ registro.apellidos_profesor }}</strong
+        >
+      </div>
+      <div class="card-body">
+        <p><strong>Email:</strong> {{ registro.email_profesor }}</p>
+        <p><strong>Teléfono:</strong> {{ registro.telefono }}</p>
+        <p><strong>Precio/hora:</strong> {{ registro.precio_hora }} €</p>
+        <p>
+          <strong>Experiencia:</strong> {{ registro.meses_experiencia }} meses
+        </p>
+        <p>
+          <strong>Fecha registro:</strong>
+          {{ registro.fecha_registro | date : "dd/MM/yyyy" }}
+        </p>
+        @if(registro.fecha_fin){
+        <p>
+          <strong>Fecha baja:</strong>
+          {{ registro.fecha_fin | date : "dd/MM/yyyy" }}
+        </p>
+        } @else {
+        <button (click)="darRegistroDeBaja(registro.id)" class="button-primary">
+          Darse de baja
+        </button>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

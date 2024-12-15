@@ -1,0 +1,181 @@
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+.card-body {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+.icono {
+  display: inline;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.card2 {
+  text-align: end;
+}
+
+section {
+  font-family: "Work Sans", sans-serif;
+}
+
+.img-prof {
+  height: 120px;
+  aspect-ratio: 1/1;
+  display: block;
+  object-fit: cover;
+}
+.study-general {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.star {
+  font-size: 20px;
+  color: var(--color-button1);
+}
+
+.study-fields {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row nowrap;
+  padding-left: 0;
+  margin-bottom: 1em;
+}
+
+.studies {
+  display: inline-block;
+  padding-left: 0;
+  color: var(--color-text-secondary);
+  width: 100%;
+  height: 20%;
+  display: inline;
+  margin: 0 10 0 0;
+  padding: 0;
+  gap: 10px;
+}
+
+.experience-prof {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.content-experience-prof {
+  margin-bottom: 1em;
+  display: inline-block;
+}
+
+.price-prof {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.content-price-prof {
+  margin-bottom: 1em;
+  display: inline-block;
+  background-color: var(--color-button2);
+  border: 3px transparent;
+  border-radius: 5px;
+  padding-left: 0;
+  text-align: left;
+  justify-content: left;
+}
+
+.button-contact {
+  background-color: var(--color-button1);
+  color: var(--color-text-secondary);
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  text-wrap: nowrap;
+  width: 200px;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.button-contact:hover {
+  box-shadow: 4px 4px 5px rgba(0, 0.3, 0, 0.3);
+}
+
+@media (min-width: 340px) and (max-width: 767px) {
+  .card-body {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+
+  .card2 {
+    text-align: center;
+  }
+  .study-general {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+
+  .study-fields {
+    flex-direction: column;
+  }
+
+  .studies {
+    height: 5%;
+    width: 100%;
+  }
+
+  .experience-prof {
+    display: inline;
+    margin-right: 3px;
+  }
+
+  .content-experience-prof {
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  .price-prof {
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  .content-price-prof {
+    margin-bottom: 1em;
+    display: inline-block;
+    background-color: var(--color-button2);
+    border: 3px transparent;
+    border-radius: 5px;
+    padding-left: 0;
+    text-align: left;
+    justify-content: left;
+  }
+  .button-contact {
+    background-color: var(--color-button1);
+    color: var(--color-text-secondary);
+    padding: 5px 10px;
+    margin-top: 1em;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  overflow: hidden;
+}
+
+.info-prof-container {
+  max-width: 60%;
+}
+
+.list_card__header {
+  background-color: #bcdcaa;
+}

@@ -1,0 +1,127 @@
+<header>
+  <app-navbar></app-navbar>
+</header>
+<main>
+  <section
+    class="wrapper d-flex justify-content-center login-wrapper bg-body flex-column p-3 align-items-center"
+  >
+    <div>
+      <h1>
+        <p class="fw-light text-center">
+          Hola, <span class="fw-bold">¡bienvenido!</span>
+        </p>
+        <p class="fw-light text-center">¿Preparado para aprender?</p>
+      </h1>
+      <form
+        #loginForm="ngForm"
+        (ngSubmit)="getLoginData(loginForm.value, loginForm)"
+      >
+        <div class="my-2 fw-light">
+          <label for="email" class="form-label">Tu email</label>
+          <input
+            class="form-control"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="nombre@email.com"
+            ngModel
+          />
+        </div>
+        <div class="my-2 fw-light">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Escribe tu contraseña"
+            ngModel
+          />
+        </div>
+        <div class="container-right">
+          <button
+            type="button"
+            class="my-1 fw-bold margin-right-auto"
+            style="color: var(--color-text-secondary); font-size: 0.875em"
+            (click)="toggleAlert($event)"
+          >
+            ¿Has olvidado tu contraseña?
+          </button>
+        </div>
+        <div class="mt-4 mb-3 fw-semibold">
+          <input class="button-primary" type="submit" value="Entrar" />
+        </div>
+        <div class="error-box">
+          @if(error === true){
+          <p class="mt-3 text-center text-danger small">{{ msg }}</p>
+          }
+        </div>
+        <p class="text-center">
+          ¿No tienes una cuenta? Regístrate
+          <a
+            routerLinkActive="active"
+            aria-current="page"
+            [routerLink]="['/register']"
+            title="Ir a registro"
+            >aquí</a
+          >
+        </p>
+      </form>
+
+      @if(showAlert){
+      <div class="alert"></div>
+      }
+
+      <div>
+        <form
+          #resetKeyForm="ngForm"
+          (ngSubmit)="getemail(resetKeyForm.value, resetKeyForm)"
+          *ngIf="showAlert"
+          class="alert-box col-sm-8 col-10 col-md-6 col-lg-4"
+        >
+          <p
+            class="tittle-forgetpassword"
+            style="text-align: center; font-size: 1.2em; font-weight: bold"
+          >
+            ¿Has olvidado tu contraseña?
+          </p>
+          <p class="subtitle-forgetpassword">
+            Introduce tu dirección de correo electrónico y te enviaremos un
+            enlace para restablecer tu contraseña.
+          </p>
+          <input
+            class="input-email"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Introduce tu correo"
+            ngModel
+          />
+          <div class="error-box">
+            @if(erroremail === true){
+            <small class="mt-3 text-center text-danger small">{{ msg }}</small>
+            }
+          </div>
+          <div class="buttons-forgetpassword">
+            <button
+              type="submit"
+              class="b-forgetpassword-send"
+              [disabled]="resetKeyForm.invalid"
+            >
+              Enviar
+            </button>
+            <button
+              (click)="toggleAlert($event)"
+              class="b-forgetpassword-close"
+            >
+              Cerrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <app-footer></app-footer>
+</footer>

@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+
+.container {
+  font-family: "Work Sans", sans-serif;
+}
+
+/* Estilos para la tabla desktop */
+.desktop-table {
+  display: block;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.foto {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+/* Estilos para cards móviles */
+.mobile-cards {
+  display: none;
+}
+
+.student-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.student-photo {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.student-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-text-main);
+}
+
+.card-body p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.card-body strong {
+  color: var(--color-text-secondary);
+}
+
+/* Media queries */
+@media (max-width: 767px) {
+  .desktop-table {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: block;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+
+  .d-flex.gap-3 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+
+  .form-select {
+    width: 100%;
+  }
+}

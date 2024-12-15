@@ -1,0 +1,22 @@
+<section class="container w-100">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-xl-8">
+      <h4>Sobre mí</h4>
+      @if(usuario && usuario.id){
+      <textarea
+        class="form-control"
+        rows="6"
+        id="sobre_mi"
+        placeholder="Cuentanos algo sobre ti..."
+        [(ngModel)]="sobre_mi"
+      ></textarea>
+      <button
+        class="button-primary mt-4"
+        (click)="actualizarSobreMi(+usuario.id, sobre_mi)"
+      >
+        Enviar
+      </button>
+      }
+    </div>
+  </div>
+</section>

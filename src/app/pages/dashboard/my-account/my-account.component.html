@@ -1,0 +1,22 @@
+@if(usuarioLogueado) {
+<!-- prettier-ignore -->
+@if(usuarioLogueado.rol === 'administrador') {
+<app-panel-administrador></app-panel-administrador>
+} @else {
+<div class="mt-4">
+  <!--Encabezado con botón de edición-->
+  <div class="d-flex justify-content-center">
+    <h2>Mi Cuenta</h2>
+  </div>
+
+  <div class="form__outer_div__container">
+    @if(usuarioLogueado.rol === 'alumno') {
+    <app-students-form></app-students-form>
+    } @if(usuarioLogueado.rol === 'profesor') {
+    <app-teacher-form></app-teacher-form>
+    }
+  </div>
+</div>
+}
+<!--  -->
+}

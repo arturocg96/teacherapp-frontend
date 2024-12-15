@@ -1,0 +1,79 @@
+<div *ngIf="popUpVisible" class="overlay"></div>
+<section class="my2 profesores-list">
+  <div class="card my-2">
+    <h5 class="list_card__header card-header name-prof text-black">
+      {{ myProfesor.nombre }} {{ myProfesor.apellidos }}
+      <img
+        class="icono"
+        src="https://cdn3.emoji.gg/emojis/1178-verified.png"
+        alt="Check Icon"
+      />
+    </h5>
+    <div class="card-body align-items-center">
+      <img
+        class="img-prof rounded-circle"
+        [src]="API_URL + myProfesor.foto"
+        [alt]="myProfesor.nombre"
+      />
+
+      <div class="info-prof-container">
+        <div class="study-general">
+          <h6 class="py-1">Áreas de Conocimiento:</h6>
+          @for (item of myProfesor.materias; track $index) {
+          <ul class="study-fields">
+            <li class="studies">{{ item }}</li>
+          </ul>
+          }
+        </div>
+        <div class="experience">
+          <h6 class="experience-prof">Meses de experiencia:</h6>
+          <div class="content-experience-prof">
+            {{ myProfesor.meses_experiencia }}
+          </div>
+        </div>
+        <div class="price">
+          <h6 class="price-prof">Precio por hora:</h6>
+          <div class="content-price-prof">{{ myProfesor.precio_hora }}€/h</div>
+        </div>
+      </div>
+
+      <div class="flex-grow-1 card2">
+        <div class="flex justify-content-center">
+          <div class="px-4 py-1">
+            @if ( myProfesor.puntuacion!= null && 0.5 <= myProfesor.puntuacion
+            && myProfesor.puntuacion<1.5){ <i class="fas fa-star star"></i> }
+            @if( myProfesor.puntuacion!= null && 1.5 <= myProfesor.puntuacion &&
+            myProfesor.puntuacion<2.5){ <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            } @if(myProfesor.puntuacion!= null && 2.5 <= myProfesor.puntuacion
+            && myProfesor.puntuacion<3.5){ <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            } @if(myProfesor.puntuacion!= null && 3.5 <= myProfesor.puntuacion
+            && myProfesor.puntuacion<4.5){ <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            } @if(myProfesor.puntuacion!= null && 4.5 <= myProfesor.puntuacion
+            && myProfesor.puntuacion<=5){ <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            }
+          </div>
+        </div>
+        <div class="button-home-prof px-4 py-1">
+          <button class="button-contact" (click)="mostrarPopUp()">
+            Más información
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pop-up-contactar
+    *ngIf="popUpVisible"
+    [myProfesor]="myProfesor"
+    (cerrarPopUp)="cerrarPopUp()"
+  ></app-pop-up-contactar>
+</section>

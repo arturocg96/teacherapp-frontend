@@ -1,0 +1,107 @@
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+
+section {
+  font-family: "Work Sans", sans-serif;
+}
+
+input {
+  background-color: #f6f6f6;
+}
+
+.title {
+  color: var(--color-button1);
+  background-color: var(--color-button3);
+  border-radius: 8px;
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+.button-primary {
+  background-color: var(--color-button1);
+}
+
+.button-secondary {
+  background-color: var(--color-button2);
+  border-radius: 3px;
+}
+
+.button-secondary:hover {
+  box-shadow: 4px 4px 5px rgba(0, 0.3, 0, 0.3);
+}
+
+.container {
+  max-width: 800px;
+  width: 90%;
+}
+
+.form__img__profile {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.form__last__row {
+  min-height: 250px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.error-box {
+  height: 21px;
+}
+
+input.button-primary:disabled {
+  background-color: #d6d6d6;
+  color: #9e9e9e;
+  cursor: not-allowed;
+  opacity: 0.7;
+  box-shadow: none;
+  border: 2px solid #b3b3b3;
+}
+
+.button-secondary {
+  background-color: var(--color-button2);
+  color: var(--color-text-secondary);
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: var(--color-button3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.profile-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--color-button2);
+}
+
+.teacher-container {
+  min-height: 100vh;
+}
+
+.desplegable {
+  max-height: 150px;
+  overflow-y: auto;
+}

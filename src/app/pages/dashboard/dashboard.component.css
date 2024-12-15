@@ -1,0 +1,52 @@
+/* Hacer que el navbar esté fijo en la parte superior */
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que esté por encima del resto */
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Separar el contenido principal para que no quede detrás del navbar */
+.dashboard-layout {
+  margin-top: 60px; /* Ajusta esto según la altura del navbar */
+  display: flex;
+  min-height: calc(100vh - 60px); /* Altura total menos el navbar */
+}
+
+/* Sidebar estilo y posición */
+app-sidebar-menu {
+  flex: 0 0 250px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  height: calc(100vh - 60px); /* Ocupa todo el espacio debajo del navbar */
+  position: sticky;
+  top: 60px; /* Comienza justo debajo del navbar */
+}
+
+/* Área de contenido principal */
+.content-area {
+  flex-grow: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 992px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  app-sidebar-menu {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+}

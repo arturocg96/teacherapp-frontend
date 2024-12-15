@@ -1,0 +1,43 @@
+<div class="flex justify-content-center py-2">
+  <h2>Encuentra al <strong>profesor perfecto</strong> más cerca de ti</h2>
+</div>
+
+<div class="flex justify-content-end">
+  <section class="filter">
+    <aside>
+      <app-filter-home (filtro_emitido)="filterProfesor($event)">
+      </app-filter-home>
+    </aside>
+  </section>
+
+  <section class="mapa">
+    @if (isGoogleMapsLoaded) {
+    <google-map width="100%" height="100%" [zoom]="12" [center]="myposition()">
+      @for (marca of marcasList; track $index ) {
+      <app-mapa-home [myCoordenada]="marca"></app-mapa-home>
+      }
+    </google-map>
+    } @else {
+    <div>Cargando mapa...</div>
+    }
+  </section>
+</div>
+<div class="flex">
+  <div class="profesor-list-home">
+    @for (profesor of profesoresList; track profesor.id) {
+    <article>
+      <app-profesor-card-home [myProfesor]="profesor"></app-profesor-card-home>
+    </article>
+    } @empty {
+    <article class="col-12">
+      <h3>No hay Profesores para esta selección</h3>
+    </article>
+    }
+  </div>
+</div>
+
+<app-pop-up-contactar
+  *ngIf="profesorSeleccionado"
+  [myProfesor]="profesorSeleccionado"
+>
+</app-pop-up-contactar>

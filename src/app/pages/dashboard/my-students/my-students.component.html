@@ -1,0 +1,117 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Mis Alumnos</h2>
+    <form [formGroup]="filterForm" class="d-flex gap-3">
+      <select
+        formControlName="estado"
+        class="form-select"
+        (change)="applyFilters()"
+      >
+        <option value="">Todos los estados</option>
+        <option value="Alumno en curso">Alumno en curso</option>
+        <option value="Ex alumno">Ex alumno</option>
+      </select>
+      <select
+        formControlName="fecha"
+        class="form-select"
+        (change)="applyFilters()"
+      >
+        <option value="">Todas las fechas</option>
+        <option value="Ultimos 3 meses">Últimos 3 meses</option>
+        <option value="Ultimos 6 meses">Últimos 6 meses</option>
+        <option value="Ultimos 12 meses">Últimos 12 meses</option>
+      </select>
+    </form>
+  </div>
+
+  <!-- Tabla para desktop -->
+  <div class="desktop-table">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr class="text-center">
+          <th>Alumno</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Fecha de Inscripción</th>
+          <th>Fecha Baja</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(alumno of alumnos; track alumno.id){
+        <tr>
+          <td class="d-flex align-items-center">
+            <img
+              [src]="
+                alumno.foto_alumno
+                  ? API_URL + alumno.foto_alumno
+                  : 'img/no_profile_freepick.webp'
+              "
+              alt="Foto Alumno"
+              class="rounded-circle me-3 foto"
+            />
+            <div>
+              <p class="mb-0">
+                {{ alumno.nombre_alumno }} {{ alumno.apellidos_alumno }}
+              </p>
+              <!-- <small class="text-muted">{{ alumno.clase }}</small> -->
+            </div>
+          </td>
+          <td>
+            {{ alumno.telefono }}
+          </td>
+          <td>{{ alumno.email_alumno }}</td>
+          <td>{{ alumno.fecha_registro | date : "dd/MM/yyyy" }}</td>
+          <td>
+            @if(!alumno.fecha_fin){
+            <button class="button-primary" (click)="darDeBaja(alumno.id)">
+              Dar de Baja
+            </button>
+            } @else {
+            {{ alumno.fecha_fin | date : "dd/MM/yyyy" }}
+            }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <!-- Cards para móvil -->
+  <div class="mobile-cards">
+    @for(alumno of alumnos; track alumno.id){
+    <div class="student-card">
+      <div class="card-header">
+        <img
+          [src]="
+            alumno.foto_alumno
+              ? API_URL + alumno.foto_alumno
+              : 'img/no_profile_freepick.webp'
+          "
+          alt="Foto Alumno"
+          class="rounded-circle student-photo"
+        />
+        <div class="student-info">
+          <h3>{{ alumno.nombre_alumno }} {{ alumno.apellidos_alumno }}</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p><strong>Teléfono:</strong> {{ alumno.telefono }}</p>
+        <p><strong>Email:</strong> {{ alumno.email_alumno }}</p>
+        <p>
+          <strong>Fecha de Inscripción:</strong>
+          {{ alumno.fecha_registro | date : "dd/MM/yyyy" }}
+        </p>
+        <p>
+          <strong>Fecha de Baja:</strong>
+          @if(!alumno.fecha_fin){
+          <button class="button-primary" (click)="darDeBaja(alumno.id)">
+            Dar de Baja
+          </button>
+          } @else {
+          {{ alumno.fecha_fin | date : "dd/MM/yyyy" }}
+          }
+        </p>
+      </div>
+    </div>
+    }
+  </div>
+</div>

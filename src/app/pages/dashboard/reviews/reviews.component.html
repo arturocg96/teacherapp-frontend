@@ -1,0 +1,178 @@
+<div class="reviews-container">
+  <h2>Mis Reseñas de Clases</h2>
+  <div class="filters">
+    @if(usuario &&usuario.rol === 'alumno') {
+    <button (click)="agregarResena()" class="standard-btn">
+      Agregar Reseña
+    </button>
+    }
+  </div>
+
+  <table class="reviews-table">
+    <thead>
+      <tr>
+        <!-- <th>Clase</th> -->
+        @if(usuario && usuario.rol === 'alumno') {
+        <th>Profesor</th>
+        } @if(usuario && usuario.rol === 'profesor') {
+        <th>Estudiante</th>
+        }
+        <th>Reseña</th>
+        <th>Fecha</th>
+        <th>Puntuación</th>
+        @if(usuario && usuario.rol === 'alumno') {
+        <th></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(opinion of opinionesFiltradas; track $index){
+      <tr>
+        <!-- <td>
+          {{ getNombreMateria(opinion.estudiante_id, opinion.profesor_id) }}
+        </td> -->
+        @if(usuario && usuario.rol === 'alumno') {
+        <td>{{ getNombreProfesor(opinion.profesor_id) }}</td>
+        } @if(usuario && usuario.rol === 'profesor') {
+        <td>{{ getNombreAlumno(opinion.estudiante_id) }}</td>
+        }
+        <td>{{ opinion.comentario }}</td>
+        <td>{{ opinion.fecha | date : "dd/MM/yyyy" }}</td>
+        <td>
+          <span class="stars">{{ "★".repeat(opinion.puntuacion) }}</span>
+        </td>
+        @if(usuario && usuario.rol === 'alumno') {
+        <td>
+          <i
+            class="icon_editar_opinion fa-regular fa-pen-to-square"
+            (click)="editarResena(opinion)"
+          ></i>
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="reviews-grid">
+    @for(opinion of opinionesFiltradas; track $index){
+    <div class="review-card">
+      @if(usuario && usuario.rol === 'alumno') {
+      <div class="review-field">
+        <span class="field-label">Profesor:</span>
+        <span>{{ getNombreProfesor(opinion.profesor_id) }}</span>
+      </div>
+      } @if(usuario && usuario.rol === 'profesor') {
+      <div class="review-field">
+        <span class="field-label">Estudiante:</span>
+        <span>{{ getNombreAlumno(opinion.estudiante_id) }}</span>
+      </div>
+      }
+      <div class="review-field">
+        <span class="field-label">Reseña:</span>
+        <span>{{ opinion.comentario }}</span>
+      </div>
+      <div class="review-field">
+        <span class="field-label">Fecha:</span>
+        <span>{{ opinion.fecha | date : "dd/MM/yyyy" }}</span>
+      </div>
+      <div class="review-field">
+        <span class="field-label">Puntuación:</span>
+        <span class="stars">{{ "★".repeat(opinion.puntuacion) }}</span>
+      </div>
+      @if(usuario && usuario.rol === 'alumno') {
+      <div class="review-actions">
+        <i
+          class="icon_editar_opinion fa-regular fa-pen-to-square"
+          (click)="editarResena(opinion)"
+        ></i>
+      </div>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Modal Agregar/Editar Reseña -->
+  @if(mostrarModal){
+  <div class="modal">
+    <div class="modal-content">
+      <figure class="modal-close" (click)="cerrarModal()">
+        <i class="fa-regular fa-circle-xmark" style="font-size: 22px"></i>
+      </figure>
+      @if(opinionModalMode === 'add'){
+      <h2>Agregar Reseña</h2>
+      } @else {
+      <h2>Editar Reseña</h2>
+      }
+      <form
+        [formGroup]="opinionForm"
+        (submit)="
+          opinionModalMode === 'add' ? onSubmitAgregar() : onSubmitEditar()
+        "
+      >
+        <label for="profesor">Profesor:</label>
+        @if(opinionModalMode === 'add'){
+        <select
+          class="form-select"
+          id="profesor"
+          formControlName="profesor_id"
+          required
+        >
+          @for(profesor of profesoresOpinables; track $index){
+          <option [value]="profesor.id">
+            {{ profesor.nombre }} {{ profesor.apellidos }}
+          </option>
+          }
+        </select>
+        } @else {
+        <input
+          type="number"
+          id="profesor"
+          formControlName="profesor_id"
+          required
+          hidden
+        />
+        <input
+          type="text"
+          class="form-control"
+          value="{{
+            getNombreProfesor(this.opinionForm.get('profesor_id')?.value)
+          }}"
+          id=""
+          disabled
+        />
+        }
+
+        <label for="comentario">Comentario:</label>
+        <textarea
+          class="form-control"
+          id="comentario"
+          formControlName="comentario"
+          required
+        ></textarea>
+
+        <label for="puntuacion">Puntuación:</label>
+        <app-star-rating
+          [rating]="opinionForm.get('puntuacion')?.value"
+          (ratingChange)="opinionForm.get('puntuacion')?.setValue($event)"
+        ></app-star-rating>
+        <input
+          class="form-control"
+          id="puntuacion"
+          type="number"
+          min="1"
+          max="5"
+          step="1"
+          formControlName="puntuacion"
+          required
+          hidden
+        />
+
+        <button class="mt-4" type="submit">
+          {{ opinionModalMode === "add" ? "Agregar" : "Editar" }}
+        </button>
+      </form>
+    </div>
+  </div>
+  }
+</div>

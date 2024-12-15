@@ -1,0 +1,80 @@
+/* header */
+.hide-link {
+  display: none;
+  @media (max-width: 991px) {
+    display: inline-block;
+  }
+}
+.ocultarli {
+  display: flex;
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+img.rounded-circle {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.mi-li li a {
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.mi-li li a:hover {
+  padding-left: 8px;
+  font-weight: 400;
+  background-color: var(--color-button1);
+}
+@media (min-width: 992px) {
+  .hover-bg li a:hover {
+    border-radius: 6px;
+    background-color: var(--color-button1);
+  }
+}
+.dropdown:hover .dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.font22 {
+  font-size: 22px;
+}
+
+.logo {
+  max-width: 40vw;
+  object-fit: contain;
+  height: 40px;
+}
+
+.notificaciones {
+  position: absolute;
+  left: -250px !important;
+  width: -webkit-fill-available;
+}
+
+.texto-notificacion {
+  background: none;
+  text-decoration: none;
+}
+
+.mensajes {
+  background: none;
+  align-items: center;
+  text-align: center;
+}
+
+.navbar__teacherapp {
+  margin-right: -17px;
+}
+
+/* header */

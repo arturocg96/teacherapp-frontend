@@ -1,0 +1,17 @@
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+section{
+    font-family: "Work Sans", sans-serif;
+}
+a, a:hover{
+    text-decoration: none;
+}
+.button-primary {
+    background-color: var(--color-button1);
+}
+.button-secondary {
+    background-color: var(--color-button2);
+    border-radius: 3px;
+}
+.button-secondary:hover {
+    box-shadow: 4px 4px 5px rgba(0, 0.3, 0, 0.3); /* Sombra cuando el cursor está sobre el botón */
+  }

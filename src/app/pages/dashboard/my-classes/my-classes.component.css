@@ -1,0 +1,112 @@
+.classes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.classes-header h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--color-text-main);
+}
+
+.filters label {
+  margin-right: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.filters select {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.alumno-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.courses-list {
+  margin: 2rem;
+  @media (max-width: 1230px) {
+    margin: 2px;
+  }
+}
+
+.courses-list h2 {
+  color: var(--color-text-main);
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.courses-list table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family);
+}
+
+.courses-list th,
+.courses-list td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.courses-list th {
+  background-color: var(--color-background-main);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.courses-list td {
+  color: var(--color-text-main);
+}
+
+.courses-list tr:nth-child(even) {
+  background-color: var(--color-background-secondary);
+}
+
+.desktop-table {
+  display: none;
+  @media (min-width: 1230px) {
+    display: block;
+  }
+}
+
+.mobile-cards {
+  display: block;
+  @media (min-width: 1230px) {
+    display: none;
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .alumno-foto {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 1rem;
+      }
+    }
+
+    .card-body {
+      p {
+        margin: 0.5rem 0;
+      }
+    }
+  }
+}

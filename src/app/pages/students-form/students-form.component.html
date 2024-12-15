@@ -1,0 +1,183 @@
+@if(tipo === 'Registra'){
+<header>
+  <app-navbar></app-navbar>
+</header>
+}
+<main>
+  <section class="bg-white py-5 d-flex justify-content-center align-items-center student-container">
+    <div class="card container p-5 border-0 shadow-lg bg-light student-card">
+      <h3 class="shadow title w-auto align-self-center text-uppercase text-center">
+        {{ tipo }} tu perfil de alumno
+      </h3>
+
+      <form [formGroup]="studentForm" (ngSubmit)="obtenerDatosFormulario()" class="mt-4">
+        <!-- Foto de Perfil -->
+        <div class="row">
+          <div class="col-12 d-flex flex-column align-items-center my-3">
+            <label class="form-label text-center mb-2" for="foto" title="Modifica tu imagen de perfil">
+              Foto
+            </label>
+            <label for="foto" class="profile-container">
+              <img [src]="profileImgUrl" alt="Imagen de perfil" class="form__img__profile img-fluid rounded-circle" />
+            </label>
+            <input class="form-control visually-hidden" type="file" id="foto" accept="image/png, image/jpeg, image/webp"
+              (change)="obtenerImagen($event)" />
+            <div class="error-box">
+              @if(checkControl('foto', 'formatoInvalido')) {
+              <p class="text-danger">
+                El archivo debe ser una imagen en formato JPG, PNG o WEBP
+              </p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Nombre y Apellidos -->
+        <div class="row">
+          <div class="my-2 fw-light col-md-6 mb-3">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-control" type="text" id="nombre" formControlName="nombre"
+              placeholder="Introduce el nombre" />
+            @if(checkControl('nombre', 'required')) {
+            <p class="text-danger">El nombre es obligatorio</p>
+            } @if(checkControl('nombre', 'maxlength')) {
+            <p class="text-danger">El nombre no debe exceder 45 caracteres</p>
+            }
+          </div>
+
+          <div class="my-2 fw-light col-md-6 mb-3">
+            <label class="form-label" for="apellidos">Apellidos</label>
+            <input class="form-control" type="text" id="apellidos" formControlName="apellidos"
+              placeholder="Introduce los apellidos" />
+            @if(checkControl('apellidos', 'required')) {
+            <p class="text-danger">Los apellidos son obligatorios</p>
+            } @if(checkControl('apellidos', 'maxlength')) {
+            <p class="text-danger">
+              Los apellidos no deben exceder 150 caracteres
+            </p>
+            }
+          </div>
+        </div>
+
+        <!-- Campos de Contraseña en Registro -->
+        @if(tipo === 'Registra') {
+        <div class="row">
+          <div class="my-2 fw-light col-md-6 mb-3">
+            <label class="form-label" for="password">Contraseña</label>
+            <input class="form-control" type="password" id="password" formControlName="password"
+              placeholder="Introduce la contraseña" />
+            <div class="error-box">
+              @if(checkControl('password', 'required')) {
+              <p class="text-danger">La contraseña es obligatoria</p>
+              } @else if(checkControl('password', 'minlength')) {
+              <p class="text-danger">Debe tener al menos 8 caracteres</p>
+              } @else if(checkControl('password', 'maxlength')) {
+              <p class="text-danger">No debe exceder de 255 caracteres</p>
+              } @else if(checkControl('password', 'pattern')) {
+              <p class="text-danger">Debe incluir una mayúscula y un número</p>
+              }
+            </div>
+          </div>
+
+          <div class="my-2 fw-light col-md-6 mb-3">
+            <label class="form-label" for="repitepassword">Repite Contraseña</label>
+            <input class="form-control" type="password" id="repitepassword" formControlName="repitepassword"
+              placeholder="Repite la contraseña" />
+            <div class="error-box">
+              @if(checkControl('repitepassword', 'required')) {
+              <p class="text-danger">Debe repetir la contraseña</p>
+              } @else if(studentForm.hasError('checkpassword')) {
+              <p class="text-danger">Las contraseñas no coinciden</p>
+              }
+            </div>
+          </div>
+        </div>
+        }
+
+        <!-- Email y Botón en Actualización -->
+        <div class="row align-items-center">
+          <div class="@if(tipo === 'Registra') col-md-6 mx-auto @else col-md-6 @endif my-2">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" id="email" formControlName="email"
+              placeholder="Introduce el email" />
+            <div class="error-box">
+              @if(checkControl('email', 'required')) {
+              <p class="text-danger">El email es obligatorio</p>
+              } @else if(checkControl('email', 'email')) {
+              <p class="text-danger">Formato de email inválido</p>
+              } @else if(checkControl('email', 'maxlength')) {
+              <p class="text-danger">El email no debe exceder 60 caracteres</p>
+              }
+            </div>
+          </div>
+          @if(tipo === 'Actualizar') {
+          <div class="col-md-6 d-flex justify-content-center mt-4 mt-md-0">
+            <button type="button" class="button-secondary" (click)="toggleCamposContrasena()">
+              {{ mostrarCamposContrasena ? "Cancelar" : "Actualizar Contraseña" }}
+            </button>
+          </div>
+          }
+        </div>
+
+        <!-- Campos de Contraseña en Actualización -->
+        @if(mostrarCamposContrasena && tipo === 'Actualizar') {
+        <div class="row">
+          <div class="my-2 fw-light col-md-6 mb-3">
+            <label class="form-label" for="password">Nueva Contraseña</label>
+            <input class="form-control" type="password" id="password" formControlName="password"
+              placeholder="Introduce la nueva contraseña" />
+            <div class="error-box">
+              @if(checkControl('password', 'required')) {
+              <p class="text-danger">La contraseña es obligatoria</p>
+              } @else if(checkControl('password', 'minlength')) {
+              <p class="text-danger">Debe tener al menos 8 caracteres</p>
+              } @else if(checkControl('password', 'maxlength')) {
+              <p class="text-danger">No debe exceder de 255 caracteres</p>
+              } @else if(checkControl('password', 'pattern')) {
+              <p class="text-danger">Debe incluir una mayúscula y un número</p>
+              }
+            </div>
+          </div>
+
+          <div class="my-2 fw-light col-md-6 mb-3">
+            <label class="form-label" for="repitepassword">Repite Nueva Contraseña</label>
+            <input class="form-control" type="password" id="repitepassword" formControlName="repitepassword"
+              placeholder="Repite la nueva contraseña" />
+            <div class="error-box">
+              @if(checkControl('repitepassword', 'required')) {
+              <p class="text-danger">Debe repetir la contraseña</p>
+              } @else if(studentForm.hasError('checkpassword')) {
+              <p class="text-danger">Las contraseñas no coinciden</p>
+              }
+            </div>
+          </div>
+        </div>
+        }
+
+        <!-- Botón de enviar -->
+        <div class="mt-4 text-center">
+          <input type="submit" [value]="tipo" class="button-primary pointer" [disabled]="
+            !studentForm.valid ||
+            errorForm.length > 0 ||
+            (tipo === 'Registra' &&
+              (!studentForm.get('password')?.value ||
+                !studentForm.get('repitepassword')?.value ||
+                studentForm.hasError('checkpassword')))
+          " />
+        </div>
+      </form>
+
+      <!-- Lista de errores generales -->
+      <div class="mt-4">
+        @for( error of errorForm; track $index ) { @if(error.message) {
+        <p class="text-danger">{{ error.field }}: {{ error.message }}</p>
+        } }
+      </div>
+    </div>
+  </section>
+</main>
+@if(tipo === 'Registra'){
+<footer>
+  <app-footer></app-footer>
+</footer>
+}
