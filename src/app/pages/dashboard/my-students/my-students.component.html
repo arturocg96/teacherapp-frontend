@@ -1,27 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Mis Alumnos</h2>
-    <form [formGroup]="filterForm" class="d-flex gap-3">
-      <select
-        formControlName="estado"
-        class="form-select"
-        (change)="applyFilters()"
-      >
-        <option value="">Todos los estados</option>
-        <option value="Alumno en curso">Alumno en curso</option>
-        <option value="Ex alumno">Ex alumno</option>
-      </select>
-      <select
-        formControlName="fecha"
-        class="form-select"
-        (change)="applyFilters()"
-      >
-        <option value="">Todas las fechas</option>
-        <option value="Ultimos 3 meses">Últimos 3 meses</option>
-        <option value="Ultimos 6 meses">Últimos 6 meses</option>
-        <option value="Ultimos 12 meses">Últimos 12 meses</option>
-      </select>
-    </form>
   </div>
 
   <!-- Tabla para desktop -->
