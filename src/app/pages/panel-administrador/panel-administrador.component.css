@@ -243,6 +243,7 @@ h3 {
     display: flex;
     flex-direction: column;
 }
+
 .filter-select {
     width: auto;
     min-width: 150px;
@@ -291,9 +292,9 @@ h3 {
     align-items: center;
     gap: 0.5rem;
     margin-top: 2rem;
-  }
-  
-  .pagination-button {
+}
+
+.pagination-button {
     padding: 0.3rem 0.6rem;
     font-size: 0.8rem;
     color: #4a4a4a;
@@ -302,66 +303,123 @@ h3 {
     background-color: #ffffff;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-  }
-  
-  .pagination-button:disabled {
+}
+
+.pagination-button:disabled {
     color: #a0a0a0;
     border-color: #e0b589;
     background-color: #f9f9f9;
     cursor: not-allowed;
-  }
-  
-  .pagination-button:hover:not(:disabled) {
+}
+
+.pagination-button:hover:not(:disabled) {
     background-color: #fdcb9e;
     color: #ffffff;
     border-color: #e0b589;
-  }
-  
-  .pagination-info {
+}
+
+.pagination-info {
     font-size: 0.9rem;
     color: #4a4a4a;
-  }
-  
+}
 
-  
-    .desktop-table {
+
+
+.desktop-table {
     display: block;
+
     @media (max-width: 800px) {
         display: none;
     }
-    }
+}
 
-    .mobile-cards {
+.mobile-cards {
     display: block;
+
     @media (min-width: 800px) {
         display: none;
     }
-    }
-    .card {
+}
+
+.card {
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    
-    padding: 1rem;
-    }
 
-    .card-header {
+    padding: 1rem;
+}
+
+.card-header {
     background-color: var(--color-button1);
     padding: 0.5rem 1rem;
     font-size: 1.25rem;
     font-weight: bold;
-    }
+}
 
-    .desktop-table-p {
+.desktop-table-p {
     display: block;
+
     @media (max-width: 1100px) {
         display: none;
     }
-    }
+}
 
-    .mobile-cards-p {
+.mobile-cards-p {
     display: block;
+
     @media (min-width: 1100px) {
         display: none;
     }
+}
+
+@media (max-width: 800px) {
+    .card {
+        font-size: 0.6rem;
     }
-    
+
+    .card-body div {
+        word-wrap: break-word;
+        word-break: break-all;
+        font-size: 0.5rem;
+    }
+
+    .card-header {
+        font-size: 0.8rem;
+    }
+
+    .alert-info,
+    .alert-danger {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        max-width: 90%;
+        text-align: center;
+    }
+
+    .alert button {
+        font-size: 1.2rem;
+    }
+
+    .form-check-input {
+        width: 1rem;
+        height: 0.5rem;
+    }
+
+    .form-check-input::before {
+        width: 0.4rem;
+        height: 0.4rem;
+        top: 0.05rem;
+        left: 0.05rem;
+        transform: translateX(0);
+    }
+
+    .form-check-input:checked::before {
+        transform: translateX(0.5rem);
+    }
+
+    .form-check-label {
+        font-size: 0.7rem;
+    }
+}

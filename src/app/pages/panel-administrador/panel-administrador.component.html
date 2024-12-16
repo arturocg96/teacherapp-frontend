@@ -162,10 +162,10 @@
           <h5>{{ profesor.nombre }} {{ profesor.apellidos }}</h5>
         </div>
         <div class="card-body">
-          <div><strong>Email:</strong> {{ profesor.email }}</div>
-          <div><strong>Teléfono:</strong> {{ profesor.telefono }}</div>
-          <div><strong>Precio Hora:</strong> {{ profesor.precio_hora }}</div>
-          <div><strong>Localización:</strong> {{ profesor.localizacion }}</div>
+          <div><strong>Email:<br></strong> {{ profesor.email }}</div>
+          <div><strong>Teléfono:<br></strong> {{ profesor.telefono }}</div>
+          <div><strong>Precio Hora:<br></strong> {{ profesor.precio_hora }}</div>
+          <div><strong>Localización:<br></strong> {{ profesor.localizacion }}</div>
           <div>
             <strong>Foto: </strong>
             @if (profesor.foto) {
@@ -178,7 +178,7 @@
             } @else { No disponible }
           </div>
           <div>
-            <strong>Materias:</strong>
+            <strong>Materias:<br></strong>
             {{
               profesor.id !== undefined &&
               materiasPorProfesor[profesor.id] &&
@@ -334,9 +334,9 @@
           <h5>{{ alumno.nombre }} {{ alumno.apellidos }}</h5>
         </div>
         <div class="card-body">
-          <div><strong>Email: </strong> {{ alumno.email }}</div>
+          <div><strong>Email:<br></strong> {{ alumno.email }}</div>
           <div>
-            <strong>Foto: </strong>
+            <strong>Foto:</strong>
             @if (alumno.foto) {
             <a
               href="javascript:void(0);"
