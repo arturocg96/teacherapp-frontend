@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject} from '@angular/core';
+import { Component, inject, ElementRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { MensajesService } from '../../services/mensajes.service';
@@ -15,6 +15,11 @@ import { MensajeAgrupado, MensajeConEmisor } from '../../interfaces/imensaje';
 })
 export class NavbarComponent {
   loginService = inject(LoginService);
+  el: ElementRef;
+
+  constructor(el: ElementRef) {
+    this.el = el;
+  }
   serviceMensaje= inject(MensajesService);
   router= inject(Router);
 
@@ -38,6 +43,9 @@ export class NavbarComponent {
       });
       this.cargarMensajesNoLeidos();
     }
+    this.router.events.subscribe(() => {
+      this.habilitarScroll();
+    });
   }
  
   //cuando login es true se ejecuta la funcion
@@ -94,6 +102,22 @@ export class NavbarComponent {
   async toggleNotificaciones(){
     this.showNotifications = !this.showNotifications;
   }
+  ngAfterViewInit() {
+    const offcanvasElement = document.getElementById('menu');
+    if (offcanvasElement) {
+      // Escucha el cierre del menú offcanvas
+      offcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
+        this.habilitarScroll();
+      });
+    }
+  }
+
+  private habilitarScroll() {
+    document.body.style.overflow = 'auto'; // Habilita el scroll
+    document.body.style.position = ''; // Restaura la posición
+    document.body.classList.remove('overflow-hidden'); // Elimina cualquier clase de bloqueo
+  }
+  
 
   
 
