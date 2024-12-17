@@ -41,19 +41,16 @@ export class LoginComponent {
   ngOnInit() {}
 
   async getLoginData(formValue: Iusuario, form: any) {
-    console.log('En funcion');
     try {
       this.error = false;
-      console.log(formValue);
+
       let response: Response = await this.loginService.login(formValue);
-      console.log(response);
-      console.log(response.message);
+
       if (response.message === 'Login correcto') {
         localStorage.setItem('token', response.token);
         this.router.navigate(['/dashboard']);
       }
     } catch ({ error }: any) {
-      console.log(error);
       this.error = true;
       this.msg = error.message;
 

@@ -37,30 +37,34 @@ export class PanelAdministradorComponent implements OnInit {
     private materiasService: MateriasService
   ) {}
 
-   //Inicializa el estado del componente y carga los datos
+  //Inicializa el estado del componente y carga los datos
   ngOnInit(): void {
     this.cargarProfesores();
     this.cargarAlumnos();
   }
-   // Actualiza la paginación en función de la sección y los filtros actuales
+  // Actualiza la paginación en función de la sección y los filtros actuales
   actualizarPaginacion(): void {
     const inicio = (this.paginaActual - 1) * this.registrosPorPagina;
     const fin = inicio + this.registrosPorPagina;
-  
+
     if (this.seccionActual === 'profesores') {
-      this.totalPaginas = Math.ceil(this.profesoresFiltrados.length / this.registrosPorPagina);
+      this.totalPaginas = Math.ceil(
+        this.profesoresFiltrados.length / this.registrosPorPagina
+      );
       this.profesoresPaginados = this.profesoresFiltrados.slice(inicio, fin);
     } else if (this.seccionActual === 'alumnos') {
-      this.totalPaginas = Math.ceil(this.alumnosFiltrados.length / this.registrosPorPagina);
+      this.totalPaginas = Math.ceil(
+        this.alumnosFiltrados.length / this.registrosPorPagina
+      );
       this.alumnosPaginados = this.alumnosFiltrados.slice(inicio, fin);
     }
   }
-   // Cambia la página para la paginación
+  // Cambia la página para la paginación
   cambiarPagina(direccion: number): void {
     this.paginaActual += direccion;
     this.actualizarPaginacion();
   }
-// Carga y transforma los datos de los profesores desde la API
+  // Carga y transforma los datos de los profesores desde la API
   async cargarProfesores() {
     try {
       const profesores = await this.profesoresService.listarProfesores();
@@ -70,7 +74,7 @@ export class PanelAdministradorComponent implements OnInit {
           validado: Boolean(profesor.validado),
           activo: Boolean(profesor.activo),
         };
-  
+
         if (profesorConvertido.localizacion) {
           try {
             const localizacionObj = JSON.parse(profesorConvertido.localizacion);
@@ -82,7 +86,7 @@ export class PanelAdministradorComponent implements OnInit {
         } else {
           profesorConvertido.localizacion = 'No disponible';
         }
-  
+
         if (
           profesorConvertido.foto &&
           profesorConvertido.foto.startsWith('/img/profiles/')
@@ -91,11 +95,11 @@ export class PanelAdministradorComponent implements OnInit {
         } else {
           profesorConvertido.foto = undefined;
         }
-  
+
         return profesorConvertido;
       });
-  
-      this.profesoresFiltrados = [...this.profesores]; 
+
+      this.profesoresFiltrados = [...this.profesores];
       for (const profesor of this.profesores) {
         try {
           if (profesor.id !== undefined) {
@@ -112,13 +116,13 @@ export class PanelAdministradorComponent implements OnInit {
           }
         }
       }
-  
-      this.actualizarPaginacion(); 
+
+      this.actualizarPaginacion();
     } catch (error) {
       console.error('Error al cargar profesores:', error);
     }
-  }  
- // Carga y transforma los datos de los alumnos desde la API
+  }
+  // Carga y transforma los datos de los alumnos desde la API
   async cargarAlumnos() {
     try {
       const alumnos = await this.alumnosService.listarAlumnos();
@@ -127,7 +131,7 @@ export class PanelAdministradorComponent implements OnInit {
           ...alumno,
           activo: Boolean(alumno.activo),
         };
-  
+
         if (
           alumnoConvertido.foto &&
           alumnoConvertido.foto.startsWith('/img/profiles/')
@@ -136,36 +140,57 @@ export class PanelAdministradorComponent implements OnInit {
         } else {
           alumnoConvertido.foto = undefined;
         }
-  
+
         return alumnoConvertido;
       });
-  
-      this.alumnosFiltrados = [...this.alumnos]; 
-      this.actualizarPaginacion(); 
+
+      this.alumnosFiltrados = [...this.alumnos];
+      this.actualizarPaginacion();
     } catch (error) {
       console.error('Error al cargar alumnos:', error);
     }
-  }  
-// Abre una foto en el modal para mostrarla
+  }
+  // Abre una foto en el modal para mostrarla
   abrirFoto(foto: string) {
+    const imagenPredeterminada = '/img/no_profile_freepick.webp';
+
     if (
       foto.startsWith(`${environment.API_URL}/img/profiles/`) ||
       foto.startsWith('/img/profiles/')
     ) {
-      this.fotoSeleccionada = foto.startsWith('http')
+      const fotoUrl = foto.startsWith('http')
         ? foto
         : `${environment.API_URL}${foto}`;
-      this.mostrarModalFoto = true;
+
+      this.checkIfImageExists(fotoUrl).then((imagenExiste) => {
+        if (imagenExiste) {
+          this.fotoSeleccionada = fotoUrl;
+        } else {
+          this.fotoSeleccionada = imagenPredeterminada;
+        }
+        this.mostrarModalFoto = true;
+      });
     } else {
-      console.warn('Foto no válida o de prueba');
+      this.fotoSeleccionada = imagenPredeterminada;
+      this.mostrarModalFoto = true;
     }
   }
-// Cierra el modal de visualización de fotos
+
+  checkIfImageExists(url: string): Promise<boolean> {
+    const img = new Image();
+    img.src = url;
+    return new Promise((resolve) => {
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+    });
+  }
+
+  // Cierra el modal de visualización de fotos
   cerrarModalFoto() {
     this.fotoSeleccionada = null;
     this.mostrarModalFoto = false;
   }
-// Cambia el estado activo/inactivo de un usuario
+  // Cambia el estado activo/inactivo de un usuario
   async cambiarEstadoUsuario(id: number, activo: boolean) {
     try {
       const response = await this.usuariosService.activarUsuario(id, activo);
@@ -177,7 +202,7 @@ export class PanelAdministradorComponent implements OnInit {
       this.cargarAlumnos();
     } catch {}
   }
-// Cambia el estado de validación de un profesor
+  // Cambia el estado de validación de un profesor
   async cambiarValidacionProfesor(id: number, validado: boolean) {
     try {
       const response = await this.profesoresService.validarProfesor(
@@ -191,18 +216,18 @@ export class PanelAdministradorComponent implements OnInit {
       this.cargarProfesores();
     } catch {}
   }
- // Cambia la sección visible entre profesores y alumnos
+  // Cambia la sección visible entre profesores y alumnos
   cambiarSeccion(seccion: 'profesores' | 'alumnos') {
     this.seccionActual = seccion;
     this.respuestaAPI = '';
     this.paginaActual = 1;
     this.actualizarPaginacion();
   }
-// Limpia el mensaje de respuesta de la API
+  // Limpia el mensaje de respuesta de la API
   limpiarMensajeAPI() {
     this.respuestaAPI = '';
   }
- // Filtra la lista de profesores en función del filtro seleccionado
+  // Filtra la lista de profesores en función del filtro seleccionado
   filtrarProfesores(event: Event) {
     const filtro = (event.target as HTMLSelectElement).value;
 
@@ -227,7 +252,7 @@ export class PanelAdministradorComponent implements OnInit {
     );
     this.actualizarPaginacion();
   }
-// Filtra la lista de alumnos en función del filtro seleccionado
+  // Filtra la lista de alumnos en función del filtro seleccionado
   filtrarAlumnos(event: Event) {
     const filtro = (event.target as HTMLSelectElement).value;
 
@@ -249,7 +274,7 @@ export class PanelAdministradorComponent implements OnInit {
 
     this.actualizarPaginacion();
   }
-// Busca profesores en la lista según el texto introducido
+  // Busca profesores en la lista según el texto introducido
   buscarProfesor(event: Event): void {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
     this.profesoresFiltrados = this.profesores.filter((profesor) =>
@@ -258,7 +283,7 @@ export class PanelAdministradorComponent implements OnInit {
     this.paginaActual = 1;
     this.actualizarPaginacion();
   }
-// Busca alumnos en la lista según el texto introducido
+  // Busca alumnos en la lista según el texto introducido
   buscarAlumno(event: Event): void {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
     this.alumnosFiltrados = this.alumnos.filter((alumno) =>

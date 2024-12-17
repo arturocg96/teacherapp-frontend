@@ -4,7 +4,7 @@
       class="available"
       [ngClass]="{ active: myProfesor.activo, inactive: !myProfesor.activo }"
     >
-      {{ myProfesor.activo ? "DISPONIBLE" : "NO DISPONIBLE" }}
+      {{ myProfesor.activo ? 'DISPONIBLE' : 'NO DISPONIBLE' }}
     </div>
     <div class="section-img-info">
       <img
@@ -16,6 +16,7 @@
             : '/img/no_profile_freepick.webp'
         "
         [alt]="myProfesor.nombre"
+        (error)="onImageError($event)"
       />
       <div class="info">
         <h1>
@@ -24,12 +25,7 @@
             class="verified"
             src="https://cdn3.emoji.gg/emojis/1178-verified.png"
             alt="Check Icon"
-            style="
-              display: inline;
-              width: 20px;
-              height: 20px;
-              vertical-align: middle;
-            "
+            style="display: inline; width: 20px; height: 20px; vertical-align: middle;"
           />
         </h1>
         <div class="subject" *ngFor="let materia of myProfesor.materia">
@@ -49,66 +45,58 @@
       {{
         myProfesor.sobre_mi
           ? myProfesor.sobre_mi
-          : "Aún no hay información en esta sección"
+          : 'Aún no hay información en esta sección'
       }}
     </p>
   </div>
+
   <div class="section">
     <div class="opiniones-container">
       <h2>Opiniones</h2>
       <div class="opinions">
-        <!-- Comprobamos si hay opiniones -->
         <div *ngIf="opinionesProfesor.length > 0; else noOpiniones">
-          <!-- Iteramos sobre cada opinión -->
           <div *ngFor="let opinion of opinionesProfesor" class="opinion">
             <div class="opinion-header">
               <div>
                 <div class="opinion-name">
                   {{
                     opinion.estudiante_nombre ||
-                      "No hay opiniones disponibles para este profesor"
+                      'No hay opiniones disponibles para este profesor'
                   }}
                 </div>
 
                 <span class="rating">
                   <i
                     class="fas fa-star"
-                    *ngFor="
-                      let _ of [].constructor(opinion.puntuacion || 0);
-                      let i = index
-                    "
-                    [style.color]="
-                      i < opinion.puntuacion ? 'var(--color-button1)' : '#ccc'
-                    "
-                  >
-                  </i>
+                    *ngFor="let _ of [].constructor(opinion.puntuacion || 0); let i = index"
+                    [style.color]="i < opinion.puntuacion ? 'var(--color-button1)' : '#ccc'"
+                  ></i>
                 </span>
 
                 <span class="opinion-time">
-                  {{ opinion.fecha ? (opinion.fecha | date : "short") : "" }}
+                  {{ opinion.fecha ? (opinion.fecha | date : 'short') : '' }}
                 </span>
               </div>
             </div>
 
             <p>
               <strong>Comentario:</strong>
-              {{ opinion.comentario || "" }}
+              {{ opinion.comentario || '' }}
             </p>
           </div>
         </div>
 
-        <!-- Mensaje si no hay opiniones -->
         <ng-template #noOpiniones>
           <p>No hay opiniones disponibles para este profesor.</p>
         </ng-template>
       </div>
     </div>
+
     <div class="buttons">
       <button class="button-close" (click)="cerrar()">Cerrar</button>
 
       <button class="button-register" id="button-register" (click)="redirect()">
-        @if(login){ ¡Apúntate a a su clase! } @else { ¡Regístrate para
-        contactar! }
+        {{ login ? '¡Apúntate a su clase!' : '¡Regístrate para contactar!' }}
       </button>
     </div>
   </div>

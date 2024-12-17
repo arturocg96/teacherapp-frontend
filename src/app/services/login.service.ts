@@ -21,9 +21,6 @@ export class LoginService {
   private http = inject(HttpClient);
 
   login(user: Body): Promise<Response> {
-    console.log(`${this.baseUrl}/login`);
-    console.log(user);
-
     return firstValueFrom(
       this.http.post<Response>(`${this.baseUrl}/login`, user)
     );

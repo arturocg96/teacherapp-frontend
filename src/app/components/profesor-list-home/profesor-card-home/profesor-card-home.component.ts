@@ -29,4 +29,10 @@ export class ProfesorCardHomeComponent {
   cerrarPopUp() {
     this.popUpVisible = false;
   }
+
+  onImageError(event: Event) {
+    const element = event.target as HTMLImageElement;
+    element.src = '/img/no_profile_freepick.webp'; // Ruta de la imagen predeterminada
+  }
+  
 }

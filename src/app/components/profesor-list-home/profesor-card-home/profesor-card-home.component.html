@@ -14,6 +14,7 @@
         class="img-prof rounded-circle"
         [src]="API_URL + myProfesor.foto"
         [alt]="myProfesor.nombre"
+        (error)="onImageError($event)"
       />
 
       <div class="info-prof-container">
