@@ -351,8 +351,9 @@ h3 {
 .card-header {
     background-color: var(--color-button1);
     padding: 0.5rem 1rem;
-    font-size: 1.25rem;
+    font-size: 0.75rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .desktop-table-p {
@@ -379,7 +380,7 @@ h3 {
     .card-body div {
         word-wrap: break-word;
         word-break: break-all;
-        font-size: 0.5rem;
+        font-size: 0.6rem;
     }
 
     .card-header {
